@@ -1,6 +1,8 @@
 package com.pma.projectmanagement.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,9 +19,12 @@ public class Employee {
     private String lastName;
     private String email;
 
-    @ManyToOne
+    @ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH,
+            CascadeType.PERSIST }, fetch = FetchType.LAZY) // lazy loading, nece ucitati employee-e za svaki ucitan
+                                                           // projekat
+
     @JoinColumn(name = "project_id")
-    private Project theProject;
+    private Project project;
 
     public String getFirstName() {
         return firstName;
@@ -60,5 +65,13 @@ public class Employee {
     }
 
     public Employee() {
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 }
