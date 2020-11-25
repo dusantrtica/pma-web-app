@@ -1,5 +1,7 @@
 package com.pma.projectmanagement.controllers;
 
+import java.util.List;
+
 import com.pma.projectmanagement.dao.ProjectRepository;
 import com.pma.projectmanagement.entities.Project;
 
@@ -17,11 +19,19 @@ public class ProjectController {
     @Autowired
     ProjectRepository proRepo;
 
+    @GetMapping
+    public String displayProjects(Model model) {
+        List<Project> projects = proRepo.findAll();
+        model.addAttribute("projects", projects);
+
+        return "/projects/list-projects";
+    }
+
     @GetMapping("/new")
     public String displayProjectForm(Model model) {
 
         model.addAttribute("project", new Project());
-        return "new-project";
+        return "projects/new-project";
     }
 
     @PostMapping("/save")

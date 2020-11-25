@@ -1,5 +1,7 @@
 package com.pma.projectmanagement.controllers;
 
+import java.util.List;
+
 import com.pma.projectmanagement.dao.EmployeeRepository;
 import com.pma.projectmanagement.entities.Employee;
 
@@ -16,11 +18,19 @@ public class EmployeeController {
     @Autowired
     EmployeeRepository employeeRepo;
 
+    @GetMapping
+    public String displayEmployees(Model model) {
+        List<Employee> employees = employeeRepo.findAll();
+        model.addAttribute("employees", employees);
+
+        return "employees/list-employees";
+    }
+
     @GetMapping("/new")
     public String displayEmployeeForm(Model model) {
         model.addAttribute("employee", new Employee());
 
-        return "new-employee";
+        return "employees/new-employee";
     }
 
     @PostMapping("/save")
