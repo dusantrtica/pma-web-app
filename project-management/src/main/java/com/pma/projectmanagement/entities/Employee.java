@@ -15,7 +15,8 @@ import javax.persistence.ManyToMany;
 @Entity
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // ovim se oslanjamo na DB mehanizam. Auto znaci autoinkrement
+    // a to nije dobro ako imamo data.sql za generisanje test podataka.
     private long employeeId;
 
     private String firstName;
