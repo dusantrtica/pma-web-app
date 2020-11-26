@@ -44,15 +44,9 @@ public class ProjectController {
     }
 
     @PostMapping("/save")
-    public String createProject(Project project, @RequestParam List<Long> employees, Model model) {
+    public String createProject(Project project, Model model) {
         // This should handle single saving to the database
         proRepo.save(project);
-
-        Iterable<Employee> chosenEmployees = empRepo.findAllById(employees);
-        for (Employee e : chosenEmployees) {
-            e.setProject(project);
-            empRepo.save(e);
-        }
 
         // use a redirect to prevent duplicate submissions
         return "redirect:/projects/new";
