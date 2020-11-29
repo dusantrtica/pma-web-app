@@ -9,8 +9,8 @@
     <div class="container">
     <div>
     <h4> Current projects</h4>
-    <table>
-        <thead>
+    <table class="table table-bordered table-stripped">
+        <thead class="thead-dark">
             <tr>
                 <th>Project Name</th>
                 <th>Project stage</th>
@@ -27,23 +27,30 @@
 
     <div>
     <h4> Current employees</h4>
-    <table>
-        <thead>
+    <table class="table table-bordered table-stripped">
+        <thead class="thead-dark">
             <tr>
                 <th>Employee FirstName</th>
                 <th>employee Last name</th>
-                <th>employee email</th>
+                <th>Projett count</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="employee : ${employees}">
+            <tr th:each="employee : ${employeesListProjectCount}">
                 <td th:text="${employee.firstName}"></td>
                 <td th:text="${employee.lastName}"></td>
-                <td th:text="${employee.email}"></td>
+                <td th:text="${employee.projectCount}"></td>
             </tr>
         </tbody>
     </table>
     </div>
+    <div class="col-md-4">
+        <canvas id="myPieChart" height="50" width="50"></canvas>
+        <script>
+            var chartData = "[[${projectStatusCount}]]";            
+        </script>
     </div>
+    </div>
+    <script type="text/javascript" th:src="@{js/myChart.js}"></script>
 </body>
 </html>
