@@ -11,9 +11,9 @@ import com.pma.projectmanagement.dao.ProjectRepository;
 import com.pma.projectmanagement.dto.ChartData;
 import com.pma.projectmanagement.dto.EmployeeProject;
 import com.pma.projectmanagement.entities.Project;
+import com.pma.projectmanagement.services.ProjectService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,19 +22,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 
     @Autowired
-    ProjectRepository proRepo;
+    ProjectService projectService;
 
     @Autowired
     EmployeeRepository employeeRepo;
 
     @GetMapping("/")
     public String displayHome(Model model) throws JsonProcessingException {
-        List<Project> projects = proRepo.findAll();
+        List<Project> projects = projectService.getAll();
         List<EmployeeProject> employeesListProjectCount = employeeRepo.employeeProjects();
         Map<String, Object> map = new HashMap<>();
         model.addAttribute("projects", projects);
 
-        List<ChartData> projectData = proRepo.getProjectStatus();
+        List<ChartData> projectData = projectService.getProjectStatus();
 
         // Lets convert projectData object into a json structure for use javascript
         ObjectMapper objectMapper = new ObjectMapper();
